@@ -1,0 +1,41 @@
+<div class="register">
+  <div class="mainTitle">
+    用户详情
+  </div>
+  <div class="mainCon">
+  <table class="table">
+    <thead class="hed">
+    <tr>
+      <th>UUId</th>
+      <th>昵称</th>
+      <th>性别</th>
+      <th>头像</th>
+      <th>城市</th>
+      <th>手机</th>
+      <th>创建时间</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td ng-bind="user.id"></td>
+      <td ng-bind="user.nickname"></td>
+      <td>
+        <span ng-show="user.sex == 1">男</span>
+        <span ng-show="user.sex == 2">女</span>
+        <span ng-show="user.sex == 0">未填</span>
+      </td>
+      <td>
+        <img ng-src="{{user.headImgUrl}}" alt="" style="width: 100px;height: 100px;">
+      </td>
+      <td ng-bind="user.city"></td>
+      <td ng-bind="user.phone"></td>
+      <td ng-bind="user.createTime | date : 'yyyy-MM-dd '"></td>
+    </tr>
+
+    </tbody>
+
+  </table>
+  <button type="button" class="btn btn-info" ui-sref="main.findUser" >返回</button>
+</div>
+
+</div>

@@ -1,0 +1,55 @@
+<div class="register">
+  <div class="mainTitle">
+    查看推广员
+  </div>
+  <div class="mainCon">
+    <table class="table table-hover">
+      <th>UUId</th>
+      <th>姓名</th>
+      <th>手机</th>
+      <th>地址</th>
+      <th>状态</th>
+      <th>操作</th>
+      <tr ng-repeat="a in data">
+        <td ng-bind="a.id"></td>
+        <td ng-bind="a.realName"></td>
+        <td>{{a.phone}}</td>
+        <td>{{a.addr}}</td>
+        <td>
+          <span ng-show="a.role == 3">总代理</span>
+          <span ng-show="a.role == 2">楼盘代</span>
+          <span ng-show="a.role == 1">推广员</span>
+        </td>
+        <td>
+          <button class="btn btn-primary" ng-click="agencyDetail(a,$event)">详情</button>
+        </td>
+      </tr>
+    </table>
+    <div class="pagination">
+      <ul uib-pagination boundary-links="true" total-items="totalItems"
+          ng-model="currentPage" class="pagination-sm"
+          max-size="maxSize"
+          previous-text="&lsaquo;" next-text="&rsaquo;"
+          first-text="&laquo;" last-text="&raquo;"
+          ng-change="pageChanged()">
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="toastMask" ng-show="showToast">
+  <div class="agencyBox">
+    <i class="fa fa-close toastClose" ng-click="closeToast()"></i>
+    <h3 class="tac">代理详情</h3>
+    <p class="pl10 pt20">姓名：{{agency.realName}}</p>
+    <p class="pl10">手机：{{agency.phone}}</p>
+    <p class="pl10">身份证：{{agency.idCard}}</p>
+    <p class="pl10">角色：
+      <span ng-show="agency.role == 3">总代理</span>
+      <span ng-show="agency.role == 2">楼盘代</span>
+      <span ng-show="agency.role == 1">推广员</span>
+    </p>
+    <p class="pl10">地址：{{agency.addr}}</p>
+  </div>
+</div>

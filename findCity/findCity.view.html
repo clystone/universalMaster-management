@@ -1,0 +1,57 @@
+<div class="register">
+  <div class="mainTitle">
+    查看城市
+  </div>
+  <div class="mainCon">
+    <div class="por" style="height: 34px;">
+      <button class="btn btn-primary skillBtn" ng-click="showIncrease()">新增城市</button>
+    </div>
+    <table class="table table-hover pt10">
+      <th>序号</th>
+      <th>城市名称</th>
+      <th>操作</th>
+      <tr ng-repeat="a in cities">
+        <td ng-bind="$index"></td>
+        <td ng-bind="a.city"></td>
+        <td>
+          <button class="btn btn-primary" ng-click="deleteCity(a,$event)">删除</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="deleteThis">
+  <div class="ensureToast tac">
+    <h3>  确定删除{{currentCityName}}？</h3>
+    <div class="mt20">
+      <button class="btn fl ml20" ng-click="cancelDelete()">取消</button>
+      <button class="btn btn-primary fr mr20" ng-click="ensureDelete()">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="increase">
+  <div class="skillToast tac pt20">
+    <i class="fa fa-close toastClose" ng-click="closeToast()"></i>
+    <h3>添加城市</h3>
+    <div class="por pt20">
+      <span class="toastDes">城市名称：</span>
+      <input type="text" class="toastInt form-control" placeholder="请输入城市" ng-model="cityInt">
+      <small>备注：城市名带市 如：广州市、武汉市</small>
+    </div>
+    <div class="pt20 toastBtnBox">
+      <button class="btn btn-primary btn-lg toastBtn" ng-click="increaseCity()">确定添加</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toastMask" ng-show="increaseSuccess">
+  <div class="littleToast tac">添加成功</div>
+</div>
+
+<div class="toastMask" ng-show="deleteSuccess">
+  <div class="littleToast tac">删除成功</div>
+</div>
+

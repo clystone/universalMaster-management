@@ -1,0 +1,45 @@
+<div class="register">
+  <div class="mainTitle">
+    审核师傅
+  </div>
+  <div class="mainCon">
+
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+    <p>这是注册审核页面这是页面这是页面这是页面这是页面这是页面这是页面</p>
+  </div>
+  <table class="table">
+    <thead class="hed">
+    <tr>
+      <th>序号</th>
+      <th>fName</th>
+      <th>lName</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="a in data">
+      <td ng-bind="$index"></td>
+      <td ng-bind="a.fName"></td>
+      <td ng-bind="a.lName"></td>
+    </tr>
+
+    </tbody>
+
+  </table>
+  <button type="button" class="btn btn-info" ng-click="setPage(3)">跳转到: 3</button>
+  <div class="pagination pagination-sm m-t-none m-b-none">
+    <ul uib-pagination boundary-links="true" total-items="totalItems"
+        ng-model="currentPage" class="pagination-sm"
+        max-size="maxSize"
+        previous-text="&lsaquo;" next-text="&rsaquo;"
+        first-text="&laquo;" last-text="&raquo;"
+        ng-change="pageChanged()">
+    </ul>
+  </div>
+</div>

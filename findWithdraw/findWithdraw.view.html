@@ -1,0 +1,90 @@
+<div class="register">
+  <div class="mainTitle">
+    查看提现
+  </div>
+  <div class="mainCon">
+    <table class="table table-hover">
+      <thead class="hed">
+      <tr>
+        <th>师傅id</th>
+        <th>支付宝名称</th>
+        <th>支付宝账号</th>
+        <th>银行卡名称</th>
+        <th>开户行</th>
+        <th>银行卡账号</th>
+        <th>已提现</th>
+        <th>总额</th>
+        <th>提现中</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="a in pockets">
+        <td class="por" style="width: 80px;">
+          <p>
+            <span>{{a.masterId}}</span>
+            <img src="images/eye.png" alt="" style="width: 20px;height: 20px; position: absolute;left: 40px; cursor: pointer;" ng-click="showMaster(a,$event)">
+          </p>
+            </td>
+        <td>{{a.aName}}</td>
+        <td>{{a.aliPay}}</td>
+        <td>{{a.bName}}</td>
+        <td>{{a.brank}}</td>
+        <td>{{a.brankNo | splitNumberFilter}}</td>
+        <td>{{a.withdraw / 100}}</td>
+        <td>{{a.money / 100}}</td>
+        <td>{{a.frozen / 100}}</td>
+        <td>
+          <button class="btn btn-primary" ng-click="withDraw(a,$event)">提现</button>
+        </td>
+      </tr>
+      </tbody>
+
+    </table>
+    <!--<button type="button" class="btn btn-info" ui-sref="main.userDetail" >用户详情</button>-->
+    <div class="pagination pagination-sm m-t-none m-b-none">
+      <ul uib-pagination boundary-links="true" total-items="totalItems"
+          ng-model="currentPage" class="pagination-sm"
+          max-size="maxSize"
+          previous-text="&lsaquo;" next-text="&rsaquo;"
+          first-text="&laquo;" last-text="&raquo;"
+          ng-change="pageChanged()">
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="withdrawBox">
+  <div class="questionBox">
+    <h3 class="tac">是否提现{{currentMaster}}师傅</h3>
+    <p><span class="pl30">提现金额：</span><input type="text" class="form-control moneyInt" ng-model="num"></p>
+    <button class="leftBtn btn fl ml20 btn-primary" ng-click="cancelWithdraw()">取消</button>
+    <button class="rightBtn btn fr mr20 btn-primary" ng-click="ensureWithdraw()">确定</button>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="masterToast">
+  <div class="masterToast pt20">
+    <i class="fa fa-close toastClose" ng-click="closeToast()"></i>
+    <h3 class="tac pl10">查看师傅信息</h3>
+    <p class="pl10 fs16">姓名：{{master.realName}}</p>
+    <p class="pl10 fs16">昵称：{{master.nickname}}</p>
+    <p class="pl10 fs16">电话：{{master.phone}}</p>
+    <p class="pl10 fs16">身份证号：{{master.idCard}}</p>
+    <p>
+      <img ng-src="{{master.headImgUrl}}" alt="" style="width: 70px;height: 70px; margin-left: 10px;">
+    </p>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="missParms">
+  <div class="littleToast tac">缺少提现金额</div>
+</div>
+
+<div class="toastMask" ng-show="withdrawSuccess">
+  <div class="littleToast tac">提现成功</div>
+</div>
+
+<div class="toastMask" ng-show="withdrawError">
+  <div class="littleToast tac">提现失败</div>
+</div>

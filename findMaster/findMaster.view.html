@@ -1,0 +1,79 @@
+<div class="register">
+  <div class="mainTitle">
+    查看师傅
+  </div>
+  <div class="mainCon">
+    <p>
+      <span style="float:left; line-height: 34px; font-size: 18px;">请选择师傅的状态：</span>
+      <select ng-model="state" ng-options="item.value for item in states" ng-change="change1(state)"
+              class="form-control" style="width: 200px; margin-left:200px;"></select>
+    </p>
+    <table class="table table-hover">
+      <th>序号</th>
+      <th>姓名</th>
+      <th>头像</th>
+      <th ng-show="state1 == 2 || state1 == 3 || state1 == 4">身份证</th>
+      <th>手机号</th>
+      <th>操作</th>
+      <tr ng-repeat="a in data">
+        <td ng-bind="$index + 5 * (currentPage-1) + 1"></td>
+        <td ng-bind="a.realName"></td>
+        <td> <img ng-src="{{a.headImgUrl}}" alt="" style="width: 100px;height: 100px;"></td>
+        <td ng-show="state1 == 2 || state1 == 3 || state1 == 4">
+          <div>
+            <img ng-src="https://shifu.jack-kwan.com/images/master/{{a.id}}/0.jpg" style="width: 100px;height: 100px;" alt="" ng-click="showBig(a,$event)">
+            <img ng-src="https://shifu.jack-kwan.com/images/master/{{a.id}}/1.jpg" style="width: 100px;height: 100px;" alt="" ng-click="showBig(a,$event)">
+          </div>
+        </td>
+        <td>{{a.phone}}</td>
+        <td>
+          <button class="btn btn-primary" ui-sref="main.masterDetail({id:a.id})">详情</button>
+          <button class="btn btn-primary" ng-show="state1 == 2" ng-click="passMaster(a,$event)">通过</button>
+          <button class="btn btn-primary" ng-show="state1 == 2" ng-click="rejectMaster(a,$event)">驳回</button>
+          <button class="btn btn-primary" ng-show="state1 == 3">查看评论</button>
+          <button class="btn btn-primary" ng-show="state1 == 3" ng-click="freezeMaster(a,$event)" >冻结</button>
+          <button class="btn btn-primary" ng-show="state1 == 4" ng-click="unfreezeMaster(a,$event)">解封</button>
+        </td>
+      </tr>
+    </table>
+    <div class="pagination pagination-sm m-t-none m-b-none">
+      <ul uib-pagination boundary-links="true" total-items="totalItems"
+          ng-model="currentPage" class="pagination-sm"
+          max-size="maxSize" items-per-page="count"
+          previous-text="&lsaquo;" next-text="&rsaquo;"
+          first-text="&laquo;" last-text="&raquo;"
+          ng-change="pageChanged()">
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="toastMask" ng-show="updateSuccess">
+  <div class="littleToast tac">通过成功</div>
+</div>
+
+<div class="toastMask" ng-show="rejectSuccess">
+  <div class="littleToast tac">驳回成功</div>
+</div>
+
+<div class="toastMask" ng-show="freezeSuccess">
+  <div class="littleToast tac">冻结成功</div>
+</div>
+<div class="toastMask" ng-show="unfreezeSuccess">
+  <div class="littleToast tac">解冻成功</div>
+</div>
+
+<div class="toastMask" ng-show="updateFail">
+  <div class="littleToast tac">通过失败</div>
+</div>
+
+<div class="toastMask" ng-show="bigPic">
+  <div class="picToast">
+    <i class="fa fa-close toastClose" ng-click="closeToast()"></i>
+    <div ng-click="closeToast()">
+      <img ng-src="https://shifu.jack-kwan.com/images/master/{{curId}}/0.jpg" style="float: left;width: 50%;height: 360px;cursor: pointer;" alt="">
+      <img ng-src="https://shifu.jack-kwan.com/images/master/{{curId}}/1.jpg" style="float: left;width: 50%;height: 360px;cursor: pointer;" alt="">
+    </div>
+  </div>
+</div>

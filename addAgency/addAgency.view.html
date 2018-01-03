@@ -1,0 +1,49 @@
+<div class="register">
+  <div class="mainTitle">
+    添加代理
+  </div>
+  <form name="myForm" novaildate>
+    <div class="mainCon">
+      <div class="pl10">
+        <p class="mr10">
+          <span style="float:left; line-height: 34px; font-size: 18px;">请选择代理的角色：</span>
+          <select ng-model="state" ng-options="item.value for item in states" ng-change="change1(state)"
+                  class="form-control" style="width: 200px; margin-left:200px;"></select>
+        </p>
+        <p class="mr10">姓名：<input type="text" class="form-control" ng-model="realName"></p>
+        <p class="mr10">密码：<input type="password" class="form-control" ng-model="password"></p>
+        <p class="mr10">手机号：<input type="text" class="form-control" ng-model="phone" name="phone" required ng-minlength="11" ng-maxlength="11"></p>
+        <small class="colorRed" ng-show="myForm.phone.$error.required">
+          手机号不能为空
+        </small>
+        <small class="colorRed" ng-show="myForm.phone.$invalid">
+          手机号应为11位
+        </small>
+        <p class="mr10">身份证号：<input type="text" class="form-control" ng-model="idCard" required name="idCard" ng-minlength="15" ng-maxlength="18"></p>
+        <small class="colorRed" ng-show="myForm.idCard.$error.required">
+          身份证号不能为空
+        </small>
+        <small class="colorRed" ng-show="myForm.idCard.$invalid">
+          身份证号应为15位到18位
+        </small>
+        <p class="mr10" style="margin-bottom: 0;">
+          地址：<small>备注：省代和楼盘代必填，省代为省名如广东省，楼盘代为楼盘名如萝岗碧桂园，推广员可任意填</small>
+          <input type="text" class="form-control" ng-model="addr">
+        </p>
+        <button class="btn btn-primary mt10 mb10" ng-click="addAgency()" ng-class="{'disabled':myForm.$invalid}" >添加</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="toastMask" ng-show="addSuccess">
+  <div class="littleToast tac">新增成功</div>
+</div>
+
+<div class="toastMask" ng-show="addFail1">
+  <div class="littleToast tac">{{msg}}</div>
+</div>
+
+<div class="toastMask" ng-show="addFail">
+  <div class="littleToast tac">新增失败</div>
+</div>

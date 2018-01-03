@@ -1,0 +1,30 @@
+
+<div style="position: fixed; top: 0;bottom: 0;left: 0; right: 0; background: url('images/bg4.jpg') repeat-x">
+  <form id="slick-login" name="myForm" novalidate class="myForm">
+    <p class="desc">用户登录</p>
+    <label>username</label><input type="text" class="placeholder" placeholder="请输入手机号" id="phone" name="phone1" ng-model="phone1" required ng-minlength="11" ng-maxlength="11">
+    <small class="colorRed"
+           ng-show="myForm.phone1.$error.required">
+      手机号不能为空
+    </small>
+    <small class="colorRed"
+           ng-show="myForm.phone1.$invalid">
+      手机号应为11位
+    </small>
+    <label>password</label><input type="password" class="placeholder" placeholder="请输入密码" id="password" name="password1" ng-model="pw1" required>
+    <small class="colorRed"
+           ng-show="myForm.password1.$error.required">
+      密码不能为空
+    </small>
+    <input type="button" value="登陆" id="login" ng-click="LoginIn()" ng-disabled="myForm.phone1.$error.required ||
+  myForm.password1.$error.required">
+  </form>
+</div>
+
+<div class="toastMask" ng-show="accountToast">
+  <div class="littleToast tac">{{msg}}</div>
+</div>
+
+<div class="toastMask" ng-show="oftenToast">
+  <div class="littleToast tac">操作过于频繁</div>
+</div>

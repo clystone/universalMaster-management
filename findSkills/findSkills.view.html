@@ -1,0 +1,114 @@
+<div class="register">
+  <div class="mainTitle">
+    查看技能
+  </div>
+  <div class="mainCon">
+    <div class="por" style="height: 34px;">
+      <button class="btn btn-primary skillBtn" ng-click="showIncrease()">新增技能</button>
+    </div>
+    <table class="table table-hover pt10">
+      <th>序号</th>
+      <!--<th>技能Id</th>-->
+      <th>技能名称</th>
+      <th>技能 Logo</th>
+      <th>操作</th>
+      <tr ng-repeat="a in skill">
+        <td ng-bind="$index"></td>
+        <!--<td ng-bind="a.id"></td>-->
+        <td ng-bind="a.skill"></td>
+        <td>
+          <img ng-src="https://shifu.jack-kwan.com/images/skill/{{a.id}}.jpg" alt="" class="wh78">
+          <!--<img ng-src="http://192.168.2.102:8080/images/skill/{{a.id}}.jpg" alt="" class="wh78">-->
+        </td>
+        <td>
+          <button class="btn btn-primary" ng-click="updateSkill(a,$event)">更改</button>
+          <button class="btn btn-primary" ng-click="deleteSkill(a,$event)">删除</button>
+          <button class="btn btn-primary" ng-click="uploadImg(a,$event)">上传技能 Logo</button>
+          <!--<button class="btn btn-primary" ng-show="state1 == 2">通过</button>-->
+          <!--<button class="btn btn-primary" ng-show="state1 == 3">查看评论</button>-->
+          <!--<button class="btn btn-primary" ng-show="state1 == 3">冻结</button>-->
+          <!--<button class="btn btn-primary" ng-show="state1 == 4">解封</button>-->
+        </td>
+      </tr>
+    </table>
+    <!--<div class="pagination">-->
+      <!--<ul uib-pagination boundary-links="true" total-items="totalItems"-->
+          <!--ng-model="currentPage" class="pagination-sm"-->
+          <!--max-size="maxSize"-->
+          <!--previous-text="&lsaquo;" next-text="&rsaquo;"-->
+          <!--first-text="&laquo;" last-text="&raquo;"-->
+          <!--ng-change="pageChanged()">-->
+      <!--</ul>-->
+    <!--</div>-->
+    <!--<div>-->
+      <!--<button class="btn btn-primary" ng-click="showIncrease()">新增技能</button>-->
+    <!--</div>-->
+
+  </div>
+</div>
+
+<div class="toastMask" ng-show="update">
+  <div class="skillToast tac pt20">
+    <i class="fa fa-close toastClose" ng-click="closeUpdate()"></i>
+    <h3>更改技能</h3>
+    <div class="por pt20">
+      <span class="toastDes">原技能名称：</span>
+      <input type="text" class="toastInt form-control" ng-model="currentSkill" placeholder="请输入技能" disabled>
+    </div>
+    <div class="por pt20">
+      <span class="toastDes">技能名称：</span>
+      <input type="text" class="toastInt form-control" placeholder="请输入更改名称" ng-model="newSkill">
+    </div>
+    <div class="pt20 toastBtnBox">
+      <button class="btn btn-primary btn-lg toastBtn" ng-click="ensureUpdate()">确定更改</button>
+    </div>
+
+  </div>
+</div>
+
+<div class="toastMask" ng-show="increase">
+  <div class="skillToast tac pt20">
+    <i class="fa fa-close toastClose" ng-click="closeToast()"></i>
+    <h3>添加技能</h3>
+    <div class="por pt20">
+      <span class="toastDes">技能名称：</span>
+      <input type="text" class="toastInt form-control" placeholder="请输入技能" ng-model="skillInt">
+    </div>
+    <div class="pt20 toastBtnBox">
+      <button class="btn btn-primary btn-lg toastBtn" ng-click="increaseSkill()">确定添加</button>
+    </div>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="uploadPic">
+  <div class="skillToast tac pt20">
+    <i class="fa fa-close toastClose" ng-click="closeUpload()"></i>
+    <h3>上传技能 Logo</h3>
+    <form name="form0" id="form0">
+      <input class="js_file" type="file" name="file">
+    </form>
+    <ul class="uploader_files"></ul>
+    <button class="btn btn-primary tac" id="uploadBtn" ng-click="ensureUpload()">确定上传</button>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="increaseSuccess">
+  <div class="littleToast tac mt20">添加成功</div>
+</div>
+
+<div class="toastMask" ng-show="deleteSuccess">
+  <div class="littleToast tac">删除成功</div>
+</div>
+
+<div class="toastMask" ng-show="updateSuccess">
+  <div class="littleToast tac">更新成功</div>
+</div>
+
+<div class="toastMask" id="testToast">
+  <div class="littleToast tac">上传成功</div>
+</div>
+
+<div class="toastMask" id="testToast1">
+  <div class="littleToast tac">上传失败</div>
+</div>
+

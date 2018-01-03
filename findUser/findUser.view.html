@@ -1,0 +1,44 @@
+<div class="register">
+  <div class="mainTitle">
+    查找用户
+  </div>
+  <div class="mainCon">
+    <table class="table">
+      <thead class="hed">
+      <tr>
+        <th>序号</th>
+        <!--<th>用户名</th>-->
+        <th>昵称</th>
+        <!--<th>头像</th>-->
+        <!--<th>城市</th>-->
+        <!--<th>性别</th>-->
+        <th>创建时间</th>
+        <th>操作</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr ng-repeat="a in users">
+        <td ng-bind="$index + 10 * (currentPage-1)"></td>
+        <!--<td ng-bind="a.username"></td>-->
+        <td ng-bind="a.nickname"></td>
+        <td ng-bind="a.createTime | date : 'yyyy-MM-dd '"></td>
+        <td>
+          <button class="btn btn-primary" ui-sref="main.userDetail({id:a.id})">详情</button>
+        </td>
+      </tr>
+
+      </tbody>
+
+    </table>
+    <!--<button type="button" class="btn btn-info" ui-sref="main.userDetail" >用户详情</button>-->
+    <div class="pagination pagination-sm m-t-none m-b-none">
+      <ul uib-pagination boundary-links="true" total-items="totalItems"
+          ng-model="currentPage" class="pagination-sm"
+          max-size="maxSize"
+          previous-text="&lsaquo;" next-text="&rsaquo;"
+          first-text="&laquo;" last-text="&raquo;"
+          ng-change="pageChanged()">
+      </ul>
+    </div>
+  </div>
+  </div>
