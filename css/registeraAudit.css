@@ -21,8 +21,16 @@
 }
 
 .mainCon{
+    min-height: 200px;
     border: 1px solid #fff;
     background-color: lightyellow;
     box-shadow: 0 0 5px 2px #eee;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+    -webkit-appearance: none !important;
+    margin: 0;
+}
+input[type="number"]{-moz-appearance:textfield;}
 

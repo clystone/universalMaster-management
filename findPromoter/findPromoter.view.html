@@ -22,6 +22,7 @@
         </td>
         <td>
           <button class="btn btn-primary" ng-click="agencyDetail(a,$event)">详情</button>
+          <button class="btn btn-primary" ng-click="agencyWater(a,$event)">账单流水</button>
         </td>
       </tr>
     </table>
@@ -46,10 +47,55 @@
     <p class="pl10">手机：{{agency.phone}}</p>
     <p class="pl10">身份证：{{agency.idCard}}</p>
     <p class="pl10">角色：
-      <span ng-show="agency.role == 3">总代理</span>
       <span ng-show="agency.role == 2">楼盘代</span>
       <span ng-show="agency.role == 1">推广员</span>
+      <span ng-show="agency.role == 3">总代理</span>
     </p>
     <p class="pl10">地址：{{agency.addr}}</p>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="showWater">
+  <div class="speToast">
+    <i class="fa fa-close toastClose" ng-click="closeWater()"></i>
+    <h3 class="tac">账单流水</h3>
+    <span class="pl10">选择年份：</span>
+    <select class="form-control" ng-model="waterYear" ng-change="yearChange()" style="padding-left: 10px;width: 150px; display: inline-block;" ng-options="y for y in years">
+      <!--<option value="" disabled>请选择年份</option>-->
+    </select>
+    <span class="pl10">选择月份：</span>
+    <select class="form-control" ng-model="waterMonth" ng-change="monthChange()" style="padding-left: 10px;width: 150px;display: inline-block;" ng-options="m for m in months">
+      <option value="" disabled>请选择月份</option>
+    </select>
+    <div class="pl10 mt10">
+      <span>订单数：{{parms.num}}</span>
+      <span>金额：{{parms.sum / 100}}</span>
+      <button ng-click="showSign()" class="btn btn-primary ml20" ng-show="hasSign != 1">确认提现</button>
+      <button class="btn ml20" disabled ng-show="hasSign">已提现</button>
+    </div>
+    <table class="table table-hover mt10">
+      <tr>
+        <th>用户头像</th>
+        <th>用户昵称</th>
+        <th>完成时间</th>
+        <th>金额</th>
+      </tr>
+      <tr ng-repeat="a in orders">
+        <td> <img ng-src="{{a.user.headImgUrl}}" alt="" style="width: 40px;height: 40px;"></td>
+        <td>{{a.user.nickname}}</td>
+        <td>{{a.finishTime | date : 'yyyy-MM-dd '}}</td>
+        <td>￥{{a.pay / 100}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="sign">
+  <div class="ensureToast tac">
+    <h3>  确定提现？</h3>
+    <div class="mt20">
+      <button class="btn fl ml20" ng-click="cancelSign()">取消</button>
+      <button class="btn btn-primary fr mr20" ng-click="ensureSign()">确定</button>
+    </div>
   </div>
 </div>

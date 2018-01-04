@@ -61,8 +61,8 @@
         <span ng-show="order.state == 5">已完成</span>
       </p>
       <p>服务类型：{{order.skill}}</p>
-      <p>创建时间：{{order.createTime | date : 'yyyy-MM-dd HH:ss'}}</p>
-      <p>预约时间：{{order.bookTime | date : 'yyyy-MM-dd'}} {{order.bookTime | date:'HH:ss'}}-{{order.bookTime+3600000 | date:'HH:ss'}}</p>
+      <p>创建时间：{{order.createTime | date : 'yyyy-MM-dd HH:mm'}}</p>
+      <p>预约时间：{{order.bookTime | date : 'yyyy-MM-dd'}} {{order.bookTime | date:'HH:mm'}}-{{order.bookTime+3600000 | date:'HH:mm'}}</p>
       <p>客户：{{order.name}}</p>
       <p>师傅：{{order.master.realName}}</p>
       <p>联系电话：{{order.phone}}</p>

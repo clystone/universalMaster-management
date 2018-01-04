@@ -472,6 +472,18 @@ table {
     box-shadow: 0 0 5px 2px #eee;
 }
 
+.speToast {
+    background-color: lightyellow;
+    width: 500px;
+    min-height: 560px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -250px;
+    margin-top: -270px;
+    box-shadow: 0 0 5px 2px #eee;
+}
+
 .masterToast {
     background-color: lightyellow;
     width: 300px;

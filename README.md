@@ -1,2 +1,2 @@
-# universalMaster-management
-全能师傅管理端
+# management
+管理端模板
