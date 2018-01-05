@@ -571,6 +571,9 @@
         else if($scope.searchName < 10000000000000){
           alert("长度至少14位")
         }
+        else if(($scope.searchName+'').slice(0,6) != '100000'){
+          alert("前6位一定是100000")
+        }
         else{
           console.log($scope.searchName);
           $http.get(url + '/api/order/findnmanager/' + $scope.searchName, {headers: {"TOKEN": token1}})
@@ -587,8 +590,13 @@
       };
       
       $scope.showDetail = (order,$event)=> {
-        console.log(order)
+        console.log(order);
+        $scope.detailBox = true;
+        $scope.order = order;
+      };
 
+      $scope.closeDetail = () => {
+        $scope.detailBox = false;
       }
   }]);
 
