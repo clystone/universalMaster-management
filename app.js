@@ -2,8 +2,8 @@
 (function () {
     'use strict';
     let myApp = angular.module("myApp", ['ui.router', 'ui.bootstrap','ui.router.state.events']);
-    const url = 'http://192.168.2.103:8080';
-    // const url = 'https://shifu.jack-kwan.com';
+    // const url = 'http://192.168.2.103:8080';
+    const url = 'https://shifu.jack-kwan.com';
     myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
         $urlRouterProvider.otherwise('/');
@@ -494,9 +494,9 @@
                         $scope.maxSize = 5;
                         $scope.pageChanged = function () {
                             console.log($scope.currentPage);
-                            $http.get(url + '/api/order/findsomemanager?1page=' + $scope.currentPage + '&size=10', {headers: {"TOKEN": token1}})
+                            $http.get(url + '/api/order/findsomemanager/5?page=' + $scope.currentPage + '&size=10', {headers: {"TOKEN": token1}})
                                 .then(res => {
-                                    $scope.users = res.data.parms.users;
+                                  $scope.orders = res.data.parms.orders;
                                 })
                         }
                     }
