@@ -469,7 +469,7 @@
         $scope.states = [
             {des: 0, value: '取消的订单'},
             {des: 1, value: '未接单的订单'},
-            {des: 2, value: '已接单的订单'},
+            {des: 2, value: '待上门的订单'},
             {des: 3, value: '待确认价格'},
             {des: 4, value: '待支付'},
             {des: 5, value: '已完成的订单'}
@@ -539,6 +539,7 @@
         //   });
 
         $scope.showDetail = function (current, $event) {
+          $scope.orderId = current.id;
             console.log(current.id);
             $scope.detailBox = true;
             $http.get(url + '/api/order/findmanager/' + current.id, {headers: {"TOKEN": token1}})
@@ -553,6 +554,60 @@
                 });
         };
 
+        $scope.cancelOrder = () => {
+          $scope.cancelThis = true;
+        };
+
+      $scope.changeMaster = () => {
+        $scope.changeThis = true;
+      };
+      
+      $scope.ensureChange = () => {
+        $http.post(url + '/api/order/changem/' + $scope.orderId,{}, {headers: {"TOKEN": token1}})
+          .then(function (res) {
+            if (res.data.info == 18) {
+              $state.go("login")
+            }
+            else if(res.data.info == 1){
+              console.log(res.data);
+              console.log($scope.currentPage);
+              $scope.changeThis = false;
+              $scope.detailBox = false;
+              $http.get(url + '/api/order/findsomemanager/' + $scope.state1 + '?page=' + $scope.currentPage + '&size=10', {headers: {"TOKEN": token1}})
+                .then(res => {
+                  $scope.orders = res.data.parms.orders;
+                })
+            }
+          });
+      };
+
+        $scope.ensureCancel = () => {
+          $http.post(url + '/api/order/canclem/' + $scope.orderId,{}, {headers: {"TOKEN": token1}})
+            .then(function (res) {
+              if (res.data.info == 18) {
+                $state.go("login")
+              }
+              else if(res.data.info == 1){
+                console.log(res.data);
+                console.log($scope.currentPage);
+                $scope.cancelThis = false;
+                $scope.detailBox = false;
+                $http.get(url + '/api/order/findsomemanager/' + $scope.state1 + '?page=' + $scope.currentPage + '&size=10', {headers: {"TOKEN": token1}})
+                  .then(res => {
+                    $scope.orders = res.data.parms.orders;
+                  })
+              }
+            });
+        };
+
+      $scope.cancelChange = () => {
+        $scope.changeThis = false;
+      };
+
+        $scope.cancelCancel = () => {
+          $scope.cancelThis = false;
+        };
+
         $scope.closeDetail = ()=>{
             $scope.detailBox = false;
         }
@@ -563,6 +618,40 @@
     myApp.controller('searchOrderCtr', ['$scope', '$http', 'locals', function ($scope, $http, locals) {
       let token1 = locals.get("userToken");
       $scope.searchName = 100000;
+
+      $scope.searchOrder1 = () => {
+        if(!$scope.searchPhone){
+          alert("请输入搜索内容")
+        }
+        else if($scope.searchPhone < 10000000000 || $scope.searchPhone > 100000000000){
+          alert("长度应该为11位")
+        }else {
+          $http.get(url + '/api/order/findpmanager/' + $scope.searchPhone + '?page=1&size=10', {headers: {"TOKEN": token1}})
+            .then(function (res) {
+              if (res.data.info == 18) {
+                $state.go("login")
+              }
+              else {
+                console.log(res.data);
+                $scope.orders = res.data.parms.orders;
+                $scope.totalItems =  res.data.parms.maxSize;    //所有页面中的项目总数
+                $scope.currentPage = 1;     //当前页
+                $scope.maxSize = 5;
+                $scope.setPage = function (pageNo) {
+                  $scope.currentPage = pageNo;
+                };
+                $scope.pageChanged = function () {
+                  console.log($scope.currentPage);
+                  $http.get(url + '/api/order/findpmanager/' + $scope.searchPhone + '?page='+ $scope.currentPage +'&size=10', {headers: {"TOKEN": token1}})
+                    .then(res => {
+                      $scope.orders = res.data.parms.orders;
+                    })
+                }
+              }
+            })
+
+        }
+      };
       
       $scope.searchOrder = () => {
         if(!$scope.searchName){
@@ -576,14 +665,27 @@
         }
         else{
           console.log($scope.searchName);
-          $http.get(url + '/api/order/findnmanager/' + $scope.searchName, {headers: {"TOKEN": token1}})
+          $http.get(url + '/api/order/findnmanager/' + $scope.searchName + '?page=1&size=10', {headers: {"TOKEN": token1}})
             .then(function (res) {
               if (res.data.info == 18) {
                 $state.go("login")
               }
-              else {
+            else {
                 console.log(res.data);
                 $scope.orders = res.data.parms.orders;
+                $scope.totalItems =  res.data.parms.maxSize;    //所有页面中的项目总数
+                $scope.currentPage = 1;     //当前页
+                $scope.maxSize = 5;
+                $scope.setPage = function (pageNo) {
+                  $scope.currentPage = pageNo;
+                };
+                $scope.pageChanged = function () {
+                  console.log($scope.currentPage);
+                  $http.get(url + '/api/order/findnmanager/' + $scope.searchName + '?page='+ $scope.currentPage +'&size=10', {headers: {"TOKEN": token1}})
+                    .then(res => {
+                      $scope.orders = res.data.parms.orders;
+                    })
+                }
               }
             });
         }
@@ -1474,7 +1576,7 @@
             if(toState.name=='login')return;// 如果是进入登录界面则允许
             // console.log(toState);
             let token1 = locals.get("userToken");
-            console.log(token1);
+            // console.log(token1);
             //如果用户不存在
             if(!token1){
                 console.log(111);

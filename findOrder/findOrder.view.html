@@ -70,10 +70,35 @@
       <p>描述：{{order.remark}}</p>
       <p>上门费：￥15</p>
       <p>加急费：￥{{order.urgent / 100}}</p>
+      <p>加急费：￥{{order.urgent / 100}}</p>
       <p>维修费: ￥{{order.price / 100}}</p>
       <p ng-show="order.state == 5">总费用：￥{{order.pay / 100}}</p>
       <p></p>
       <button type="button" class="btn btn-info mb10" ng-click="closeDetail()" >返回</button>
+      <button type="button" ng-show="order.state == 1" class="btn btn-info mb10" ng-click="cancelOrder()">取消订单</button>
+      <button type="button" ng-show="order.state == 2" class="btn btn-info mb10" ng-click="changeMaster()">更换师傅</button>
     </div>
   </div>
 </div>
+
+<div class="toastMask" ng-show="cancelThis">
+  <div class="ensureToast tac">
+    <h3>  确定取消订单？</h3>
+    <div class="mt20">
+      <button class="btn fl ml20" ng-click="cancelCancel()">取消</button>
+      <button class="btn btn-primary fr mr20" ng-click="ensureCancel()">确定</button>
+    </div>
+  </div>
+</div>
+
+<div class="toastMask" ng-show="changeThis">
+  <div class="ensureToast tac">
+    <h3>  确定更换师傅？</h3>
+    <div class="mt20">
+      <button class="btn fl ml20" ng-click="cancelChange()">取消</button>
+      <button class="btn btn-primary fr mr20" ng-click="ensureChange()">确定</button>
+    </div>
+  </div>
+</div>
+
+
