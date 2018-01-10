@@ -1,24 +1,8 @@
 <div class="register">
     <div class="mainTitle">
-       搜索订单
+        异常订单
     </div>
     <div class="mainCon">
-        <h4>订单号查找（二选一）：</h4>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="搜索" ng-model="searchName">
-            <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" ng-click="searchOrder()">搜索</button>
-            </span>
-        </div>
-        <p class="colorRed">请填入订单号，前6位一定是<strong>100000</strong>且至少需要14位，如：10000020180104</p>
-        <h4>手机号查找（二选一）：</h4>
-        <div class="input-group">
-            <input type="text" class="form-control" placeholder="请输入手机号" ng-model="searchPhone">
-            <span class="input-group-btn">
-                <button class="btn btn-primary" type="button" ng-click="searchOrder1()">搜索</button>
-            </span>
-        </div>
-        <p class="colorRed">请填入订单联系人手机号码，如：13700000000</p>
         <table class="table table-hover">
             <thead class="hed">
             <tr>
@@ -43,7 +27,6 @@
 
             </tbody>
         </table>
-        <h4 class="tac mt40" ng-show="totalItems === 0">没有查询到订单</h4>
         <div class="pagination pagination-sm m-t-none m-b-none">
             <ul uib-pagination boundary-links="true" total-items="totalItems"
                 ng-model="currentPage" class="pagination-sm"
@@ -54,7 +37,6 @@
             </ul>
         </div>
     </div>
-
 </div>
 
 <div class="toastMask" ng-show="detailBox">

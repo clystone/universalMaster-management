@@ -48,11 +48,16 @@
                 templateUrl: 'findOrder/findOrder.view.html',
                 controller: 'findOrderCtr'
             })
-          .state("main.searchOrder", {
-            url: "/searchOrder",
-            templateUrl: 'searchOrder/searchOrder.view.html',
-            controller: 'searchOrderCtr'
-          })
+            .state("main.searchOrder", {
+              url: "/searchOrder",
+              templateUrl: 'searchOrder/searchOrder.view.html',
+              controller: 'searchOrderCtr'
+            })
+            .state("main.abnormalOrder", {
+              url: "/abnormalOrder",
+              templateUrl: 'abnormalOrder/abnormalOrder.view.html',
+              controller: 'abnormalOrderCtr'
+            })
             .state("main.masterDetail", {
                 url: "/masterDetail/:id",
                 templateUrl: 'masterDetail/masterDetail.view.html',
@@ -623,9 +628,10 @@
         if(!$scope.searchPhone){
           alert("请输入搜索内容")
         }
-        else if($scope.searchPhone < 10000000000 || $scope.searchPhone > 100000000000){
+        else if($scope.searchPhone.length != 11){
           alert("长度应该为11位")
         }else {
+          $scope.searchName = 100000;
           $http.get(url + '/api/order/findpmanager/' + $scope.searchPhone + '?page=1&size=10', {headers: {"TOKEN": token1}})
             .then(function (res) {
               if (res.data.info == 18) {
@@ -654,13 +660,14 @@
       };
       
       $scope.searchOrder = () => {
+        $scope.searchPhone = '';
         if(!$scope.searchName){
           alert("请输入搜索内容")
         }
-        else if($scope.searchName < 10000000000000){
+        else if($scope.searchName.length < 14){
           alert("长度至少14位")
         }
-        else if(($scope.searchName+'').slice(0,6) != '100000'){
+        else if($scope.searchName.slice(0,6) != '100000'){
           alert("前6位一定是100000")
         }
         else{
@@ -700,6 +707,47 @@
       $scope.closeDetail = () => {
         $scope.detailBox = false;
       }
+  }]);
+
+    myApp.controller('abnormalOrderCtr', ['$scope', '$http', 'locals', function ($scope, $http, locals) {
+      let token1 = locals.get("userToken");
+
+
+
+      $http.get(url + '/api/order/findomanager?page=1&size=10', {headers: {"TOKEN": token1}})
+        .then(function (res) {
+          if (res.data.info == 18) {
+            $state.go("login")
+          }
+          else {
+            console.log(res.data);
+            $scope.orders = res.data.parms.orders;
+            $scope.totalItems =  res.data.parms.maxSize;    //所有页面中的项目总数
+            $scope.currentPage = 1;     //当前页
+            $scope.maxSize = 5;
+            $scope.setPage = function (pageNo) {
+              $scope.currentPage = pageNo;
+            };
+            $scope.pageChanged = function () {
+              console.log($scope.currentPage);
+              $http.get(url + '/api/order/findomanager' + '?page='+ $scope.currentPage +'&size=10', {headers: {"TOKEN": token1}})
+                .then(res => {
+                  $scope.orders = res.data.parms.orders;
+                })
+            }
+          }
+        });
+
+      $scope.showDetail = (order,$event)=> {
+        console.log(order);
+        $scope.detailBox = true;
+        $scope.order = order;
+      };
+
+      $scope.closeDetail = () => {
+        $scope.detailBox = false;
+      }
+
   }]);
 
     myApp.controller('masterDetailCtr', ['$scope', '$http', 'locals', '$stateParams', function ($scope, $http, locals, $stateParams) {
