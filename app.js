@@ -2,7 +2,7 @@
 (function () {
     'use strict';
     let myApp = angular.module("myApp", ['ui.router', 'ui.bootstrap','ui.router.state.events']);
-    // const url = 'http://192.168.2.103:8080';
+    // const url = 'http://192.168.2.112:8080';
     const url = 'https://shifu.jack-kwan.com';
     myApp.config(function ($stateProvider, $urlRouterProvider, $httpProvider) {
         $httpProvider.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
@@ -709,7 +709,7 @@
       }
   }]);
 
-    myApp.controller('abnormalOrderCtr', ['$scope', '$http', 'locals', function ($scope, $http, locals) {
+    myApp.controller('abnormalOrderCtr', ['$scope', '$http', 'locals','$state', function ($scope, $http, locals, $state) {
       let token1 = locals.get("userToken");
 
 
@@ -746,7 +746,36 @@
 
       $scope.closeDetail = () => {
         $scope.detailBox = false;
-      }
+      };
+
+      $scope.cancelOrder = () => {
+        $scope.cancelThis = true;
+      };
+
+      $scope.ensureCancel = () => {
+        $http.post(url + '/api/order/canclem/' + $scope.order.id,{}, {headers: {"TOKEN": token1}})
+          .then(function (res) {
+            if (res.data.info == 18) {
+              $state.go("login")
+            }
+            else if(res.data.info == 1){
+              // console.log(res.data);
+              // console.log($scope.currentPage);
+              // $scope.cancelThis = false;
+              // $scope.detailBox = false;
+              // $http.get(url + '/api/order/findomanager?page=' + $scope.currentPage + '&size=10', {headers: {"TOKEN": token1}})
+              //   .then(res => {
+              //     $scope.orders = res.data.parms.orders;
+              //   })
+              alert("取消成功！");
+              $state.reload();
+            }
+          });
+      };
+
+      $scope.cancelCancel = () => {
+        $scope.cancelThis = false;
+      };
 
   }]);
 
